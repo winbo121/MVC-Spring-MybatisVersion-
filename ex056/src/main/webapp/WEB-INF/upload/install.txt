@@ -1,0 +1,360 @@
+
+#docker 시작
+------------------------------------------------------------------------------------------------------------
+docker pull ubuntu:16.04
+------최초에 한번 (docker image 저장)
+docker run -d --privileged -p8010:8010 -v /d/test_workspace:/code --restart=always --name [도커 이름명] ubuntu:16.04 /sbin/init (도커 컨테이너 만들기)
+docker ps -a  -> 도커 확인
+docker start <컨테이너 이름> -> 도커 시작
+docker stop <컨테이너 이름> -> 도커 중지
+docker exec -it cms  /bin/bash
+docker rm <컨테이너 이름> -> 도커 삭제
+
+
+#python3.8 설치 & venv 환경 만들기
+------------------------------------------------------------------------------------------------------------
+apt-get update
+apt-get update
+apt-get install -y vim build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+apt-get update
+apt-get install software-properties-common
+apt-get update
+add-apt-repository ppa:deadsnakes/ppa
+apt-get update
+apt-get install python3.6
+apt-get update
+update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1
+apt-get update
+cd /code
+python -m venv venv --without-pip
+. venv/bin/activate (가상으로 변환)
+apt-get install curl
+curl https://bootstrap.pypa.io/get-pip.py | python
+
+#mariadb 설치
+------------------------------------------------------------------------------------------------------------
+apt-get update
+apt-get install mariadb-server
+service mysql restart -> mysql 재기동
+mysql_secure_installation -> 비밀번호 초기화 후 y
+apt-get install -y libmysqlclient-dev
+apt-get install python3.6-dev
+pip install mysqlclient
+
+mysql -u root -p (접속)
+
+show databases;
+
+use [데이터베이스 명<스키마 명>]
+
+use mysql (모든유저 관리) 
+{
+select * from user\G; (유저들 조회)
+update user set plugin='' where user='root' and host = 'localhost'; (root 비번없이 들어가지는것을 방지)
+flush privileges;
+create user [아이디] @localhost identified by '[비번]'; (유저 추가)
+drop user [아이디] @localhost; (유저 삭제)
+grant all privileges on [스키마 명].[테이블 명] to 'winbo121' @localhost identified by '[비번]'; (권한주기)
+show grants for '[아이디]' @localhost; 
+revoke all on [스키마 명].[테이블 명] from '[아이디]' @localhost; (권한삭제)
+}
+
+(일반 콘솔창)mysqldump -h [외부 아이피] -u[외부 아이디] -p[외부 비번] [외부에서 가져올 스키마 명] | mysql -u[자신 아이디] -p[자신 비번] [자신의 적용할 <만들어진>스키마 명]; (외부에서 디비 가져오기)
+
+
+#github (설치)
+------------------------------------------------------------------------------------------------------------
+apt-get install git
+cd code
+git clone https://github.com/kmoocdev/cms (깃허브 주소)
+cd cms
+git fetch --all
+. venv/bin/activate (가상으로 변환)
+(venv) pip install -r requirements.txt
+
+#파이썬 시작
+------------------------------------------------------------------------------------------------------------
+프로젝트 생성
+django-admin startproject [이름]
+프로젝트 안에서 파이썬 파일 생성
+python manage.py startapp [이름]
+서버작동
+mkdir log
+python manage.py runserver 0.0.0.0:8001
+
+#github (방법)
+------------------------------------------------------------------------------------------------------------
+https://backlog.com/git-tutorial/kr/stepup/stepup1_1.html
+
+git branch  <-- 현재 branch 확인 
+
+git fetch -p <---- 브런치 업데이트 최신
+
+git checkout {branch name} <-- 현재 branch를 바꿔줌)
+
+git diff <--- 바뀐 코드 확인
+
+git pull origin {branch이름} <---- respository 소스를 땡겨옴
+      
+개발 (과정지나고) -> git status <--- 현재 작업한거랑 git 소스랑 다른 파일 비교
+
+git checkout {file name} <-- git 에 올라간 소스로 다시 초기화 (필요시만)
+
+git add . --->  모든파일 저장
+
+git add {file name} ---> 한파일만 저장
+
+git commit -m '{comment}' ---> 깃에 올릴때 comment 적어줌
+
+git push origin {branch name} ---> branch 에 올림
+
+초기화 ---> git reset --hard HEAD
+
+git checkout -b {branch name} -----> 브런치 새로 만들기
+
+
+
+
+#또다른 방식의 도커 생성및 배포하기
+------------------------------------------------------------------------------------------------------------
+docker pull ubuntu:16.04 (없을시)
+-------------- 컨테이너 생성 --------------
+docker run -d --privileged -p{사용할 포트}:80 --name {컨테이너 이름} ubuntu:16.04 /sbin/init
+docker exec -it {컨테이너 이름} /bin/bash
+
+-------------- 도커 컨테이너 내부 --------------
+apt-get update
+apt-get install vim
+cp /etc/apt/sources.list /etc/apt/sources.list_back
+vi /etc/apt/sources.list
+:%s/archive.ubuntu.com/ftp.daumkakao.com (명령어 편집기 모드에서) (카카오모드 우분투)
+apt-get update
+apt-get install -y  git wget software-properties-common libmysqlclient-dev build-essential uuid-dev libcap-dev libpcre3-dev libssl-dev curl libffi-dev  libxml2-dev libxslt1-dev zlib1g-dev
+***한글설정
+apt-get install -y language-pack-ko
+locale-gen ko_KR.UTF-8
+
+-------------- 파이썬 3.8 tar--------------
+cd /tmp
+wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz
+tar -xf Python-3.8.0.tgz
+cd Python-3.8.0
+./configure --enable-optimizations
+make -j 1
+make altinstall
+
+-------------- 파이썬 3.8.6 ppa--------------
+apt-get update
+add-apt-repository ppa:deadsnakes/ppa
+apt-get update
+apt-get install python3.8
+update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+apt-get install -y python3.8-dev
+
+-------------- 3.8vertualenv --------------
+apt-get install -y virtualenv
+mkdir code
+cd /code
+apt-get install python3.8-venv
+python -m venv venv
+. venv/bin/activate
+ 
+-------------- 파이썬 3.6 --------------
+add-apt-repository ppa:deadsnakes/ppa
+apt-get update
+apt-get install -y python3.6
+update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1
+apt-get install -y python3.6-dev
+python --version
+
+-------------- 3.6vertualenv --------------
+apt-get install -y virtualenv
+mkdir code
+cd /code
+virtualenv -p python3.6 venv (3.6)
+
+
+-------------- Git에서 master 브랜치 코드 가져오기 --------------
+cd /code
+. venv/bin/activate
+git clone https://github.com/kmoocdev/cms
+(이후 세부 branch 조정)
+cd cms
+git fetch --all
+vi requirements.txt (맨 밑에 있는 z로 되있는 것을 삭제)
+apt-get install python-pip
+mkdir log
+pip install -r requirements.txt
+
+
+-------------- Uwsgi--------------
+apt-get install -y uwsgi uwsgi-src
+vi /etc/uwsgi/apps-available/cms.ini
+<uwsgi 설정>
+[uwsgi]
+env =  LANG=ko_KR.utf8
+host = true
+plugin = python36
+chmod-socket = 666
+socket = /tmp/cms.sock
+master = true
+enable-threads = true
+processes = 2
+threads = 8
+venv = /code/venv
+wsgi-file = /code/cms/main/wsgi.py
+chdir = /code/cms
+
+ln -s /etc/uwsgi/apps-available/cms.ini /etc/uwsgi/apps-enabled/cms.ini
+apt-get install uwsgi-plugin-python3
+cd /tmp
+export PYTHON=python3.6
+uwsgi --build-plugin "/usr/src/uwsgi/plugins/python python36"
+mv python36_plugin.so /usr/lib/uwsgi/plugins/python36_plugin.so
+ls -al /usr/lib/uwsgi/plugins/python36_plugin.so
+chmod 644 /usr/lib/uwsgi/plugins/python36_plugin.so
+tail -f /var/log/uwsgi/app/cms.log (다른창으로 띄워서 잘 기동되는지 확인)
+service uwsgi restart
+
+
+-------------- Nginx --------------
+cd /tmp/
+wget http://nginx.org/keys/nginx_signing.key
+apt-key add nginx_signing.key
+apt-get update
+apt install -y nginx
+nginx -v
+
+<nginx 설정>(인증서 있을시 변경)
+vi /etc/nginx/sites-available/cms
+server {
+        listen 80 default_server;
+
+        server_name cms.kr;
+
+        access_log /var/log/nginx/cms_access.log;
+        error_log /var/log/nginx/cms_error.log;
+
+        location / {
+            uwsgi_pass unix:///tmp/cms.sock;
+            include uwsgi_params;
+        }
+
+        location /static/ {
+            alias /code/cms/backend/static/;
+            expires -1;
+        }
+}
+
+vi /etc/nginx/sites-available/default
+server {
+        listen 80;
+        listen [::]:80;
+
+ln -s /etc/nginx/sites-available/cms /etc/nginx/sites-enabled/cms
+tail -f /var/log/nginx/cms_access.log
+service nginx restart
+
+-------------- Maria DB --------------
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+add-apt-repository 'deb [arch=amd64,arm64,i386,ppc64el] http://ftp.kaist.ac.kr/mariadb/repo/10.3/ubuntu xenial main'
+apt-get update
+apt-cache policy mariadb-server 
+apt-get install -y mariadb-server mariadb-client
+<root 비밀번호 설정>
+
+<my.cnf 설정>
+vi /etc/mysql/my.cnf
+[client]
+# Default is Latin1, if you need UTF-8 set this (also in server section)
+default-character-set = utf8
+[mysqld]
+#
+# * Character sets
+# 
+# Default is Latin1, if you need UTF-8 set all this (also in client section)
+#
+character-set-server  = utf8
+collation-server      = utf8_general_ci
+character_set_server   = utf8
+collation_server       = utf8_general_ci
+default-time-zone='+9:00'
+
+<maraiDB 계정추가>
+mysql -uroot -p{비밀번호}
+
+create user 'cmsuser'@'%' identified by 'cmsuser';
+grant all privileges on kotech_cisco_cms.* to 'cmsuser'@'%' identified by 'cmsuser';
+flush privileges; 
+exit;
+
+service mysql restart
+
+--------------적용된 것을 실행----------
+만약 permisson denied같은것이 뜰경우 
+tmp 파일을 정리해준다
+
+-------------- Crontab --------------
+apt install tzdata
+<.profile 설정>
+vi .profile
+TZ='Asia/Seoul'; export TZ
+설정 이후
+timedatectl list-timezones | grep Seoul
+timedatectl set-timezone Asia/Seoul
+date ---> 현재 시간과 맞는지 확인
+crontab -e
+* * * * * /usr/bin/curl --silent http://127.0.0.1/batch
+* * * * * /usr/bin/curl --silent http://127.0.0.1/batch/delete
+추가
+
+-------------- 로그 확인-------------
+tail -f /var/log/uwsgi/app/cms.log
+tail -f /var/log/nginx/cms_access.log
+
+-------------- Docker Commit-------------
+docker commit {컨테이너ID} {이미지이름}:{버전}
+docker images
+docker save -o {만들 이름}.docker {이미지이름}:{버전}
+***버전 작성안할시 lastest로 됨
+
+
+
+
+------------가상 vmware, 오라클 버쳘박스 우분투16.04에서 docker 실행 및 다운로드 (인터넷 o)----------
+
+sudo apt-get remove docker docker-engine docker.io (미리 있는 도커파일 삭제)
+sudo apt install docker.io (docker 다운로드)
+docker --version (버전확인)
+sudo systemctl start docker (도커 시작)
+
+<(윈도우 상) test.docker 파일을 반디집으로 iso파일로 변경
+버쳘박스에 ISO파일 추가>  (버쳘박스인 경우)
+
+< 우분투상 에서 apt-get install ssh -> 알드라이브를 이용해서 
+22번포트로 사용자로 접속 해서 test.docker 업로드> (vmware인 경우)
+
+docker run ubuntu:16.04 ( 그냥 예시 이미지 땡겨오기)  (.docker 파일 받은것을 쓸려면 무조건 하지 말아야한다) 
+해당 파일 위치에서 sudo docker load -i [파일이름].docker (이미지로드)
+docker images (이미지 확인)
+docker run -d --privileged -p8005:80 -p443:443 -p3306:3306 -e LC_ALL=ko_KR.utf8 --restart=always --name {name} {image_name:tag} /sbin/init (컨테이너만들기)
+
+-------------------GUI 버전이 아닌 우분투 서버버전-----------------------------
+
+docker.iso 파일 버쳘박스에 올리기
+mount /dev/sr0 /media/cdrom 마운트 하기
+마운트 되있는 파일을 /home/아이디/파일 에 cp를 한다.
+tar xvf docker.tar (해당 장소에서)
+dpkg -i *.deb (해당 장소에서)
+
+<(윈도우 상) test.docker 파일을 반디집으로 iso파일로 변경
+버추얼 박스에 ISO파일 추가>  (버쳘박스인 경우)
+
+< 우분투상 에서 apt-get install ssh -> 알드라이브를 이용해서 
+22번포트로 사용자로 접속 해서 test.docker 업로드> (vmware인 경우)
+해당 파일 위치에서 sudo docker load -i [파일이름].docker (이미지로드)
+
+docker run -d --privileged -p8005:80 -p443:443 -p3306:3306 -e LC_ALL=ko_KR.utf8 --restart=always --name {name} {image_name:tag} /sbin/init (컨테이너만들기)
+
+
+

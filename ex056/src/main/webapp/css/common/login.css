@@ -1,0 +1,27 @@
+@charset "utf-8";
+@import "common.css";
+
+/* 로그인 페이지
+-------------------------------------------------------------*/
+.intro_body { background:url(../../images/bg_patton.png); }
+.intro { position:absolute; top:50%; width:100%; height:472px; margin-top:-236px;text-align:center; background:url(../../images/bg_login_patton.png) repeat-x left 50%; }
+.intro .login_wrap { position:relative; width:732px; height:472px; }
+.intro .login_wrap h1 { position:absolute; top:10px; left:70px; text-align:center; }
+.intro .login { position:relative; width:732px; height:472px; background:url(../../images/bg_login_box.png) no-repeat; }
+.intro .login fieldset {  position:absolute; top:190px; left:113px; width:320px; }
+.intro .login dl { float:left; width:220px;  }
+.intro .login dl dt { clear:left; float:left; padding-top:7px; width:58px; height:20px; text-align:right; }
+.intro .login dl dd { float:left; height:25px; margin:3px 0 0 12px; }
+.intro .login dl dd input { float:left; width:116px !important; height:20px; padding:0 0 0 5px; line-height:20px; border:1px solid #d1d1d1; }
+.intro .login button { position:relative; left:-32px; top:-7px; border:0; width:86px; height:62px; text-indent:-9999px; background:url(../../images/btn_login.png) no-repeat; }
+/* a {outline:none; select-dummy: expression(this.hideFocus=true);} */
+.intro .login span { float:left; margin:7px 65px; }
+.intro .login input { float:left; }
+.intro .login p { float:left; line-height:23px; }
+
+.login_footer { position:relative; top:390px; border:0; background-color:transparent; }
+
+
+
+
+		

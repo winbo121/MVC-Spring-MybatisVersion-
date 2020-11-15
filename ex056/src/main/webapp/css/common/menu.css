@@ -1,0 +1,231 @@
+﻿BODY {
+	scrollbar-face-color: #E7E7E7;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #A5A5A5;
+	scrollbar-3dlight-color: #C9C9C9;
+	scrollbar-arrow-color: #6895C4;
+	scrollbar-track-color: #F8F8F8;
+	scrollbar-darkshadow-color: #FFFFFF;
+	margin: 0px 0px 0px 0px;
+	background-color: #FFFFFF;
+}
+
+td {
+	font-size:9pt;
+	color:#666666;
+	line-height:140%;
+	font-family: dotum, 굴림,seoul, arial;
+}
+td a {
+	color:#666666;
+	text-decoration:none;
+	font-family: dotum, 굴림,seoul, arial;
+}
+td a:hover {
+	color:#000000;
+	text-decoration:none;
+	font-family: dotum, 굴림,seoul, arial;
+}
+.topinfo { 
+	font-size:8.5pt; 
+	color:#4b4b4b; 
+	font-family:"dotum"; 
+	text-decoration: none; 
+	padding-right:11px; 
+}
+.table { 
+	BACKGROUND-COLOR: #ffffff;
+	padding-left:3px;
+	padding-right:3px;
+}
+.menu_search{ 
+	font-size:8.5pt; 
+	color:#666666; 
+	font-family:"dotum";
+}
+.search_line{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #e5e5e5;
+}
+.search_text{ 
+	font-size:8.5pt; 
+	color:#666666; 
+	font-family:"dotum";
+	height:17px;
+}
+
+.search_low.search_text2{ 
+	font-size:8pt; 
+	color:#666666; 
+	font-family:"dotum";
+	height:17px;
+	padding-left:20px;
+	border-bottom-width: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #e5e5e5;
+}
+
+
+.search_low{
+	padding-left:20px;
+	border-bottom-width: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #e5e5e5;
+}
+
+
+.search_pad{
+	padding-left:15px;
+	border-bottom-width: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #e5e5e5;
+}
+
+#divMenu ,#divMenu2
+    {
+	position:absolute;
+	width:220px;
+	left:30px;
+	top:96px;
+	z-index:12;
+	visibility:hidden;
+    }
+
+
+.select_bor{
+	position:absolute;
+	width:220px;
+	left:29px;
+	top: 96px;
+	margin: 0;
+	padding: 0;
+}
+
+
+/* .select_bor{
+	position:relative;
+	clear:left;
+	float:left;
+	width:220px;
+	left:30px;
+	margin: 0;
+	padding: 0;
+} */
+
+.tree_bg { width:220px; position: relative; display: none; z-index: 9999; }
+.tree_bg>ul>li { margin-bottom:3px;}
+
+
+/* Menu 가로형 버젼 */
+.select_bor_wild {
+	position:absolute;
+	width:920px;
+	left:30px;
+	top: 148px;
+	margin: 0;
+	padding: 0;
+}
+
+.wild_menu_bg { position: relative; display: none; z-index: 9999; }
+
+#wildMenu ul.fancytree-container {
+  font-family: tahoma, arial, helvetica;
+  font-size: 10pt;
+  white-space: nowrap;
+  padding: 10px 3px;
+  margin: -4px 0 0 0;
+  background-color: white;
+  border: 3px solid #5e96bc ;
+/*   border-top:0; */
+  overflow: auto;
+  min-height: 0%;
+  position: relative;
+}
+
+#wildMenu ul.fancytree-container ul {
+  padding: 0 0 0 10px;
+  margin-top: ;
+}
+
+#wildMenu ul.fancytree-container li {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  -moz-background-clip: border;
+  -moz-background-inline-policy: continuous;
+  -moz-background-origin: padding;
+  background-attachment: scroll;
+  background-color: transparent;
+  background-position: 0px 0px;
+  background-repeat: repeat-y;
+  background-image: none;
+  margin: 0;
+  padding: 2px 0 0 0;
+}
+
+#wildMenu ul.fancytree-container>li { margin: 5px 10px;}
+
+#wildMenu ul.fancytree-container li ul { display: inline-block; margin: 3px 0; }
+
+#wildMenu ul.fancytree-container li.fancytree-lastsib {
+  background-image: none;
+}
+
+ul.fancytree-no-connector > li {
+  background-image: none;
+}
+
+ul.fancytree-no-connector > li > span {
+  width: 100%;
+}
+
+.ui-fancytree-disabled #wildMenu ul.fancytree-container {
+  opacity: 0.5;
+  background-color: silver;
+}
+
+#wildMenu ul.fancytree-container li ul li { float:left; margin-right:5px; }
+
+
+/* HELP DESK */
+#helpDesk {
+	position:absolute;
+	width:230px;
+	left:10px;
+	top: 26px;
+	margin: 0;
+	padding: 3px;
+	background-color: white;
+	border: 3px solid #5e96bc;
+	z-index: 9999;
+	vertical-align: middle;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px; 
+	border-bottom-right-radius: 5px;
+}
+
+#helpDesk .phone {
+	float:left;
+	margin-left: 5px;
+	padding-top: 15px;
+}
+
+#helpDesk .name {
+	font-size : 11px;
+	float:right;
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+#helpDesk .name a, #helpDesk .name:hover {color : #474747;}
+
+#helpDesk .phoneNum {
+	float:right;
+	margin-left: 0px;
+	margin-right: 5px;
+	font-size : 24px;
+	font-weight: bold;
+	color : #5e96bc;
+}

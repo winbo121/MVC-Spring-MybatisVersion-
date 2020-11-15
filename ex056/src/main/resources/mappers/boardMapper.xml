@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="User">
+
+<select id="selectUser" resultType="BoardVO">
+select name,password from userinfo where 1=1
+<if test="name != null and name != '' ">
+AND name like '%' || #{name} || '%'
+</if>
+</select>
+
+<insert id="insertUser" >
+insert into userinfo (name,password) values (#{name},#{password})
+</insert>
+
+<update id="updateUser"  parameterType="BoardVO">
+update userinfo set name=#{name} ,password=#{password} where name=#{name}
+</update>
+
+<delete id="deleteUser" parameterType="BoardVO">
+delete from userinfo where name = #{name}
+</delete>
+
+</mapper>

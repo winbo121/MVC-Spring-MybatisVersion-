@@ -1,0 +1,448 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+
+
+/* Type Selector */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, em, cite, code, del, dfn, font, img, ins, kbd, q, s, samp, small, 
+strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
+{
+	margin:0 auto;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-family:"돋움", Dotum, "굴림", Gulim, AppleGothic, Sans-serif;
+	font-size:100%;
+	line-height:normal;
+} 
+/* html {overflow-y:scroll; overflow-x:hidden;} */
+html {min-width:1200px; overflow-x:auto; overflow-x:auto;}
+body {font-size:12px;background:url(../../images/ConBg.png) repeat-x 0 96px;}
+
+
+address, caption, cite, code, dfn, var, em { font-style : normal; font-weight : normal; }
+li {list-style:none;}
+/*table { border-collapse : collapse; border-spacing : 0; width:100%;}*/
+fieldset,img { border : 0;} 
+img { border : 0;}
+hr, button img {display:none;}
+
+button {
+	border:0 none;
+	padding:0;
+	margin:0;
+	font-family:Dotum, '돋움' ;
+	vertical-align:middle;
+	background:transparent;
+	cursor:pointer;
+}
+button::-moz-focus-inner {
+	margin: -1px;
+	padding: 0;
+}
+
+caption {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	padding: 0;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+}
+
+legend {
+	width:0;
+	height:0;
+	overflow:hidden;
+	margin:0;
+	padding:0;
+	visibility:hidden;
+	font-size:0;
+	line-height:0;
+}
+
+hr {
+	display:none
+}
+
+a{text-decoration:none;color:#414141;cursor:pointer;}
+a:hover, a:active, a:focus{text-decoration:underline; color:#0066cc;}
+
+/* Common
+-------------------------------------------------------------*/
+.pointer{ cursor: pointer;}
+.clearL { clear:left; }
+.clearR { clear:right; }
+.clearB { clear:both; }
+.boldline { border:solid 4px #dcdcdc; }
+
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.hidden {display:none;}
+
+/* Hides from IE-mac */
+* html .clearfix {height: 1%;}
+/* End hide from IE-mac */
+
+.btn_hover a img.over{display:none;}
+.btn_hover a:hover{position:relative;} /* 7버전 이하는 잘안돌아가므로 */
+.btn_hover a:hover img{display:none;}
+.btn_hover a:hover img.over{display:inline;}
+.btn_hover a img{vertical-align:top;}
+
+input, select, textarea {
+	color:#555;
+	font-family:"돋움", Dotum;
+	font-size:12px;
+	margin-right:5px;
+}
+
+
+/* 이미지 보더라인 삭제  */
+IMG {border: none;}
+
+
+/* 전체 가로스크롤 삭제, 스크롤 색상적용  */
+html {
+	scrollbar-3dlight-color: # FFFFFF;
+	scrollbar-highlight-color: # C5C5C5;
+	scrollbar-face-color: # FFFFFF;
+	scrollbar-arrow-color: #000000;
+	scrollbar-track-color: #F3F3F3;
+	scrollbar-darkshadow-color: #F4F4F4;
+	scrollbar-shadow-color: # 767676;
+	margin: 0px 0px 0px 0px;}
+
+
+ /* 전체마진,상단배경  */
+body.bg {
+	margin-top:0px;
+	margin-left:0px;
+	background-image: url(../img/bodybg.gif);
+	background-repeat: repeat-x; }
+
+
+/* 팝업마진,상단배경  */
+body.bgpopup {
+	background-image : url(../img/popupbg.gif);
+	background-repeat: repeat-x;
+	margin-top:0px;
+	margin-left:0px;
+}
+
+/* 링크 속성  */
+A.:link, A.:visited, A.:active {
+	font-size: 8pt;
+	text-decoration: none;
+	font-family: "돋움", "돋움체", dutum ; 
+	color: # 3D3D3D;}
+A.:hover {
+	font-size: 8pt;
+	text-decoration: none;
+	font-family: "돋움", "돋움체", dutum ; 
+	color: # 016AA6;}
+
+/* 전체 텍스트 속성  */
+body, table, td, div, span, form, textarea {
+	font-size: 9pt;
+	color: #474747;
+	border:none;
+	border-spacing: 0;
+} 
+td,th { vertical-align:middle; padding: 0; }
+
+
+select{line-height:100%; padding-top:2px; padding-left:7px; width:77%;}
+
+/* SELECT 필수입력 */
+select.combo_q{
+	background:url(../images/inputbg.gif) no-repeat;
+	background-position: 0% 0%;
+	
+	}
+
+input[type=checkbox], input[type=radio]  {
+	width:14px;
+	height:14px;
+	vertical-align:middle;
+}
+input[type=text], input[type=password]  {
+	ime-mode:inactive;
+	 line-height:100%; padding-top:4px; padding-left:7px; padding-right:4px;  height:12px; width:70%; border: 1px solid #afafaf;
+}
+
+textarea {
+	font-family:Dotum, '돋움' ;
+	border-top:1px solid #c9c9c9;
+	border-left:1px solid #c9c9c9;
+	border-right:1px solid #e6e6e6;
+	border-bottom:1px solid #e6e6e6;
+}
+
+select {
+	height:19px;
+	font-size:12px;
+	font-family:Dotum, '돋움' ;
+	line-height:19px;
+	vertical-align:middle;
+}
+	 
+/* INPUT 필수입력 */
+Input.input {
+	height: 16px;
+	border: 1px solid #afafaf;
+	text-indent: 1px;
+	background-position: 0% 0%;
+	background-repeat: no-repeat;
+	background-image:url(../img/inputbg.gif);}
+	
+
+
+/* INPUT 조회부분 배경색노랑 */
+
+ Input.inquiry_inp{
+	color: #666666;
+	height: 12px;
+	background-color:#FFFDCE;
+	border: 1px solid #afafaf;
+	vertical-align:middle;
+	}
+
+/* INPUT 한글우선입력 */
+ Input.inputhan {	
+	color: #666666;
+	height: 12px;
+	background-color: #ffffff;
+	border: 1px solid #afafaf;
+	ime-mode:active; !important}
+
+/* INPUT 선택입력 */
+ Input.inputo {
+	background-color: #FFFFFF;
+	height: 12px;
+	border: 1px solid #afafaf;}
+
+/* INPUT 입력불가 */
+ Input.noinput {
+	color: #666666;
+	height: 12px;
+	background-color:#d3d3d3;
+	border: 1px solid #afafaf;
+}
+
+/* INPUT 입력 - 우정렬 */
+Input.inputo_r {
+	color: #666666;
+	height: 12px;
+	background-color: #ffffff;
+	border: 1px solid #afafaf;
+	text-align: right; }
+	
+/* INPUT 입력 필수입력 */
+Input.inputo_q {
+	color: #666666;
+	height: 12px;
+	background:url(../images/inputbg.gif) no-repeat ;
+	border: 1px solid #afafaf;
+	background-position: 0% 0%;}
+
+/* TEXTAREA 필수입력 */
+TEXTAREA.INPUT {
+	border: 1px solid #afafaf;
+	background-position: 0% 0%;
+	background-repeat: no-repeat;
+	background-image:url(../images/inputbg.gif); }
+
+/* TEXTAREA 선택입력 */
+TEXTAREA.INPUTO {
+	border: 1px solid #afafaf;
+	background-color: #ffffff; }
+	
+	
+	/* TEXTAREA 입력불가 */
+TEXTAREA.NOINPUT {
+	border: 1px solid #afafaf;
+	background-color: #f5f5f5;
+}
+
+
+
+/* 넓이
+-------------------------------------------------------------*/
+.wauto3{width:3%; !important}
+.wauto5{width:5%; !important}
+.wauto10{width:10%; !important}
+.wauto30{width:30%; !important}
+.wauto50{width:50%; !important}
+.w10 {width:10px !important;}
+.w15 {width:15px !important;}
+.w30 {width:30px !important;}
+.w50 {width:50px !important;}
+.w70 {width:70px !important;}
+.w80 {width:80px;}
+.wauto {width:80%;}
+.w100 {width:100px;}
+.h300 {height:300px;}
+
+/* 높이
+-------------------------------------------------------------*/
+.pat16 {padding-top:16px;}
+
+
+/* Button Reset */
+.button,
+.button a,
+.button button,
+.button p,
+.button.grey input,
+.button.grey input,
+.button.grey input{ position:relative; margin:0; display:-moz-inline-stack; display:inline-block; text-decoration:none !important; border:0; font-size:12px; 
+font-family:"돋움", Dotum, Tahoma, Sans-serif,; white-space:nowrap; background:url('../img/buttonwhite.gif') no-repeat; overflow:visible; color:#333;}
+
+
+.button{
+	height:23px;
+	padding:0;
+	margin-right:2px;
+	background-position:left top;
+}
+
+.button a,
+.button button,
+.button p,
+
+.button.mlargep.grey input,
+.button.mlarger.grey input,
+.button.mlargeg.grey input{ left:2px; vertical-align:middle; cursor:pointer;}
+
+/* Button Size */
+.button.mlargep p{ height:23px; background-position:left 0px; }
+.button.mlarger p{ height:23px; background-position:left 0px; }
+.button.mlargeg p{ height:23px; background-position:left 0px; }
+
+/*다른사이즈 설정시 사용*/ 
+.button.large { height:29px; background-position:left -30px; }
+.button.xLarge { height:35px; background-position:left -65px; }
+.button.small { height:18px; background-position:left -107px; }
+
+
+.button.mlargep a,
+.button.mlargep button,
+.button.mlargep.grey p,
+.button.mlargep input{ height:23px; padding:1px 10px 0 8px; font-size:12px; line-height:22px; background-position:right 0px; font-weight:bold; color:#7b2da3;}
+
+.button.mlarger a,
+.button.mlarger button,
+.button.mlarger.grey p,
+.button.mlarger input{ height:23px; padding:1px 10px 0 8px; font-size:12px; line-height:22px; background-position:right 0px;  font-weight:bold; color:#D8505E;}
+
+.button.mlargeg a,
+.button.mlargeg button,
+.button.mlargeg.grey p,
+.button.mlargeg input{ height:23px; padding:1px 10px 0 8px; font-size:12px; line-height:22px; background-position:right 0px; font-weight:bold; color:#008f00;}
+
+.button.mlargeb a,
+.button.mlargeb button,
+.button.mlargeb.grey p,
+.button.mlargeb input{ height:23px; padding:1px 10px 0 8px; font-size:12px; line-height:22px; background-position:right 0px; font-weight:bold; color:#2774ba;}
+
+/* 다른사이즈 설정시 사용*/
+.button.large a,
+.button.large button,
+.button p,
+.button.large input { height:30px; padding:1px 10px 0 8px; font-size:16px; line-height:29px; background-position:right -30px;}
+.button.xLarge a,
+.button.xLarge button,
+.button p,
+.button.xLarge input { height:35px; padding:1px 10px 0 8px; font-size:20px; line-height:35px; background-position:right -65px;}
+.button.small a,
+.button.small button,
+.button p,
+.button.small input { height:18px; padding:1px 8px 0 8px; font-size:11px; line-height:18px; background-position:right -107px;}
+
+/* Button Text Color 
+.button *:hover,
+.button *:active,
+.button *:focus{color:#690;}*/
+.button.green,
+.button.green a,
+.button.green button,
+.button p,
+.button.green input {background-image:url('../images/buttongreen.gif'); color:#fff;}
+.button.green *:hover,
+.button.green *:active,
+.button.green *:focus{ color:#ff0;}
+.button.black,
+.button.black a,
+.button.black button,
+.button p,
+.button.black input {background-image:url('../images/buttonblack.gif'); color:#fff;}
+.button.black *:hover,
+.button.black *:active,
+.button.black *:focus{ color:#ff0;}
+.button.red,
+.button.red a,
+.button.red button,
+.button p,
+.button.red input {background-image:url('../images/buttonred.gif'); color:#fff;}
+.button.red *:hover,
+.button.red *:active,
+.button.red *:focus{color:#ff0;}
+.button.pink,
+.button.pink a,
+.button.pink button,
+.button p,
+.button.pink input {background-image:url('../images/buttonpink.gif'); color:#fff;}
+.button.pink *:hover,
+.button.pink *:active,
+.button.pink *:focus{color:#ff0;}
+.button.purple,
+.button.purple a,
+.button.purple button,
+.button.purple input {background-image:url('../images/buttonpurple.gif'); color:#fff;}
+.button.purple *:hover,
+.button.purple *:active,
+.button.purple *:focus{color:#ff0;}
+.button.blue,
+.button.blue a,
+.button.blue button,
+.button p,
+.button.blue input {background-image:url('../images/buttonblue.gif'); color:#fff;}
+.button.blue *:hover,
+.button.blue *:active,
+.button.blue *:focus{color:#ff0;}
+.button.white,
+.button.white a,
+.button.white button,
+.button.white input {background-image:url('../images/buttonwhite.gif'); }
+.button.white *:hover,
+.button.white *:active,
+.button.white *:focus{color:#fa0;}
+
+
+.button.grey,
+.button.grey a,
+.button.grey button,
+.button p,
+.button.grey input{background-image:url('../images/buttongrey.gif'); color:#AAA;}
+
+
+/*비활성버튼*/
+.greyc
+{ position:relative; margin:0; display:-moz-inline-stack; display:inline-block; text-decoration:none !important; border:0; font-size:12px; 
+font-family:"돋움", Dotum, Tahoma, Sans-serif,; white-space:nowrap; background:url('../img/buttonwhite.gif') no-repeat; overflow:visible; color:#333;}
+
+
+.greyc{ height:23px; padding:1px 10px 0 8px; font-size:12px; line-height:22px; background-position:right 0px; color:#008f00;}
+
+.greyc{ left:2px; vertical-align:top; cursor:pointer;}
+
+
+.button.greyB{ height:23px; background-position:left 0px; }
+
+.button.greyB,
+.greyc{background-image:url('../images/buttongrey.gif'); font-weight:bold; color:#AAA; cursor:default;}
+
+
+
