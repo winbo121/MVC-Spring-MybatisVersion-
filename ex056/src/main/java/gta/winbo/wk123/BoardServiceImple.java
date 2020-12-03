@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BoardServiceImple implements BoardService {
@@ -23,6 +24,8 @@ public class BoardServiceImple implements BoardService {
 		B.insert(v);		
 	}
 
+	/*한 사용자가 메소드를 사용할 경우 다른 사용자는 사용 못하게 한다.*/
+	@Transactional
 	@Override
 	public void update(BoardVO v) throws Exception {
 		String [] updateData=v.getGridData().split("@");

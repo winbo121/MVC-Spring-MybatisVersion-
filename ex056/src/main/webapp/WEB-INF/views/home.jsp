@@ -197,6 +197,7 @@
 </form>
 <br>
 <br>
+<p>!!!메일전송!!!</p>
 <form id="sendMail"  enctype="multipart/form-data">
 받는사람:<input type="text" name="receiver" style="width:100px"> <br>
 <input type="file" name="filename"><br>

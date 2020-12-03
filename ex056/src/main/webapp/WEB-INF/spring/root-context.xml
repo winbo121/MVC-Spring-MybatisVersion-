@@ -21,13 +21,14 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- 디비 접속 빈즈 -->  
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
 	<property name="username" value="system" />
 	<property name="password" value="123456" />
 	</bean> 
-		
+		<!-- sql 맵퍼와 mybatis위치 알려주는 빈즈 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
@@ -39,29 +40,32 @@
 		</constructor-arg>
 	</bean>
 	
+		<!-- 파일 업로드 빈즈 -->  
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
   	  <property name="defaultEncoding" value="EUC-KR" /> <!-- 인코딩-->
  	  <property name="maxUploadSize" value="10000000" /> <!--  최대 사이즈-->
     </bean>
-    
-<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	<property name="host" value="smtp.naver.com" />
-	<property name="port" value="465" />
-	<property name="username" value="" />
-	<property name="password" value="" />
-	<property name="defaultEncoding" value="utf-8" />
-	<property name="javaMailProperties">
-		<props>
-			<prop key="mail.debug">true</prop>
-			<prop key="mail.smtp.starttls.enable">true</prop>
-			<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
-			<prop key="mail.smtp.auth">true</prop>
-			<prop key="mail.smtps.ssl.trust">*</prop>
-			<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-		</props>
-	</property>
-</bean>
-	<!-- transaction aop annotation -->
+
+	 <!-- 매일 빈즈  -->    
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com" />
+		<property name="port" value="465" />
+		<property name="username" value="" />
+		<property name="password" value="" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtps.ssl.trust">*</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 트랙잭션 빈즈 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
