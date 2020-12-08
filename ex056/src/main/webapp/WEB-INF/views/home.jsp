@@ -19,10 +19,39 @@
 <script type="text/javascript" src="<c:url value='/script/tree/jquery.fancytree-all.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/script/lims.com.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/script/lims.com.grid.js'/>"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script> <!--validate-->
+<script src="http://malsup.github.com/jquery.form.js"></script> <!--ajaxSubmit-->
 <script type="text/javascript">
 	$(function() {
-		  listGrid('select.lims', 'listForm', 'listGrid');	
+		  listGrid('select.lims', 'listForm', 'listGrid');
+		  
+		  $("#listForm1").validate({
+			  rules: {
+				  name:{required:true, email:true},
+		  		  password:{required:true, minlength:3, number:true}
+			  },
+			  messages:{
+				  name:{
+					  required:"name을 입력하세요!!",
+					  email:"이메일 형식으로 입력하세요!!"
+				  },
+			  	  password:{
+			  		  required:"password를 입력하세요!!",
+			  		  minlength: "password를 3자 이상 입력해주세요!!",
+			  		  number:"숫자만 입력해주세요!!"
+
+			  	  }		  
+			  },
+			  submitHandler: function (frm){
+				  	console.log(frm)
+	                frm.submit();  
+	            }
+
+
+		  	  	
+			  
+		  })
+		  
 	});
 	
 	function listGrid(url, form, grid) {
@@ -104,7 +133,7 @@
 						
 						data=data+colum+","+row[colum]+"/";	
 					}
-					data=data+"@"
+					data=data+"#"
 					b=true;			
 				}
 			}
@@ -155,7 +184,12 @@
 		
 			// data : $('#' + form).serialize(),
 			success : function(json) {
-
+				if(json!=null){
+					alert("메일 전송 성공")
+				}
+				else{
+					alert("실패")
+				}
 			}
 		});
 	}

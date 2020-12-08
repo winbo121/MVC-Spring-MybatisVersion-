@@ -28,7 +28,7 @@ public class BoardServiceImple implements BoardService {
 	@Transactional
 	@Override
 	public void update(BoardVO v) throws Exception {
-		String [] updateData=v.getGridData().split("@");
+		String [] updateData=v.getGridData().split("#");
 		
 		HashMap<String,String> map=new HashMap<String,String>();
 		
