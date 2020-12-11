@@ -240,8 +240,39 @@
 <br>
 <br>
 <button type="button" onclick="jsonTest()">JSON통신 테스트</button>
-<div id="jsonDiv"></div>		
+<div id="jsonDiv"></div>
+<br>
+<br>		
+<p>!!!웹채팅!!!</p>
 
+<textarea id="messageTextArea" readonly="readonly" rows="10" cols="45"></textarea><br />
+<!-- 송신 메시지 텍스트박스 -->
+<input type="text" id="messageText" style="width:200px"/>
+<!-- 송신 버튼 -->
+<input type="button" value="Send" onclick="sendMessage()" />
+
+<script type="text/javascript">
+//웹소켓 초기화
+var webSocket = new WebSocket("ws://localhost:8181/wk123/broadsocket"); //진짜 통신을 하기 위해서는 localhost가 아닌 실제 ip를 적어야 한다!
+var messageTextArea = document.getElementById("messageTextArea");
+//메시지가 오면 messageTextArea요소에 메시지를 추가한다.
+webSocket.onmessage = function processMessge(message){
+//Json 풀기
+var jsonData = JSON.parse(message.data);
+if(jsonData.message != null) {
+messageTextArea.value += jsonData.message + "\n"
+};
+}
+//메시지 보내기
+function sendMessage(){
+var messageText =document.getElementById("messageText");
+
+webSocket.send("${uid}:"+messageText.value);
+messageText.value = "";
+}
+
+
+</script>
 </div>
 </div>
 
