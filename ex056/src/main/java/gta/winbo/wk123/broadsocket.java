@@ -27,7 +27,7 @@ public class broadsocket {
 
 	
 	//유저 집합 리스트
-	static List<Object> sessionUsers = Collections.synchronizedList(new ArrayList<>());
+	static List<Object> sessionUsers = Collections.synchronizedList(new ArrayList<Object>());
 	/**
 	* 웹 소켓이 접속되면 유저리스트에 세션을 넣는다.
 	* @param userSession 웹 소켓 세션
@@ -71,9 +71,11 @@ public class broadsocket {
 	public String buildJsonData(String message){
 	JsonObject jsonObject = Json.createObjectBuilder().add("message", message).build();
 	StringWriter stringwriter = new StringWriter();
-	try(JsonWriter jsonWriter = Json.createWriter(stringwriter)){
+	JsonWriter jsonWriter = Json.createWriter(stringwriter);
+	
 	jsonWriter.write(jsonObject);
-	};
+	jsonWriter.close();
+	;
 	return stringwriter.toString();
 	}
 
