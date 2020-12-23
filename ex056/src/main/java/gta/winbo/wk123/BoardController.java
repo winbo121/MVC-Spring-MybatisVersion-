@@ -165,7 +165,7 @@ public class BoardController {
 		
 		MultipartHttpServletRequest M=(MultipartHttpServletRequest)request;
 		Iterator<String> fileNames = M.getFileNames();
-		
+		File file=null;
 		while(fileNames.hasNext()) {
 			String fileName=fileNames.next();
 			
@@ -173,7 +173,7 @@ public class BoardController {
 			
 			
 			realFileName=new String(mFile.getOriginalFilename().getBytes("UTF-8"), "ISO-8859-1");
-			File file =new File("C:/Users/winbo121/Documents/workspace-sts-3.9.7.RELEASE/ex056/src/main/webapp/WEB-INF/upload/" +realFileName);
+			file =new File(realFileName);
 			
 			if(mFile.getSize()!=0) {
 				
@@ -200,7 +200,7 @@ public class BoardController {
 
 
 
-			 FileSystemResource fsr = new FileSystemResource("C:/Users/winbo121/Documents/workspace-sts-3.9.7.RELEASE/ex056/src/main/webapp/WEB-INF/upload/"+realFileName);
+			 FileSystemResource fsr = new FileSystemResource(file.getCanonicalPath());
 			 messageHelper.addAttachment(realFileName, fsr);
 		
 
