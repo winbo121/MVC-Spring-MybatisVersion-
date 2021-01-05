@@ -88,24 +88,24 @@ public class BoardController {
 		
 	    List<BoardVO> list = service.selectUser(V);
 	    	   
-	    // ¿öÅ©ºÏ »ı¼º
+	    // ì›Œí¬ë¶ ìƒì„±
 	    Workbook wb = new HSSFWorkbook();    
-	    Sheet sheet = wb.createSheet("°Ô½ÃÆÇ");	
+	    Sheet sheet = wb.createSheet("ê²Œì‹œíŒ");	
 	    
 	    Row row = null;
 	    Cell cell = null;
 	    int rowNo = 0;
 	    
-	    // Å×ÀÌºí Çì´õ¿ë ½ºÅ¸ÀÏ
+	    // í…Œì´ë¸” í—¤ë”ìš© ìŠ¤íƒ€ì¼
 	    row = sheet.createRow(rowNo++);
 
 	    cell = row.createCell(0);
-	    cell.setCellValue("¹øÈ£");
+	    cell.setCellValue("ë²ˆí˜¸");
 	    cell = row.createCell(1);
-	    cell.setCellValue("ÀÌ¸§");
+	    cell.setCellValue("ì´ë¦„");
 	    cell = row.createCell(2);
 	    
-	    // µ¥ÀÌÅÍ ºÎºĞ »ı¼º
+	    // ë°ì´í„° ë¶€ë¶„ ìƒì„±
 	    for(BoardVO vo : list) {
 
 	        row = sheet.createRow(rowNo++);
@@ -116,11 +116,11 @@ public class BoardController {
 
 	    }
 
-	    // ÄÁÅÙÃ÷ Å¸ÀÔ°ú ÆÄÀÏ¸í ÁöÁ¤
+	    // ì»¨í…ì¸  íƒ€ì…ê³¼ íŒŒì¼ëª… ì§€ì •
 	    response.setContentType("application/vnd.ms-excel");
 		response.setHeader("Content-Disposition", "attachment; filename=excel.xls");
 
-	    // ¿¢¼¿ Ãâ·Â
+	    // ì—‘ì…€ ì¶œë ¥
 		wb.write(response.getOutputStream());
 		
 
@@ -135,24 +135,24 @@ public class BoardController {
 	    
 		List<BoardVO> list = service.selectUser(V);
 		System.out.println();
-		System.out.println("¸®½ºÆ®°ª: "+list);
+		System.out.println("ë¦¬ìŠ¤íŠ¸ê°’: "+list);
 		
-		//JSONObject »ç¿ë
+		//JSONObject ì‚¬ìš©
 	    JSONObject json=new JSONObject();
 	    json.put("data", list);
 	    System.out.println();
-	    System.out.println("JSONObject json °ª : "+json);
+	    System.out.println("JSONObject json ê°’ : "+json);
 	    
-	    //ObjectMapper »ç¿ë
+	    //ObjectMapper ì‚¬ìš©
 	    ObjectMapper mapper =new ObjectMapper();
 	    Map <String,Object> map=new HashMap<String,Object>();
 	        
 	    map.put("map key","map value");
 	    map.put("data",list);
-	    System.out.println("map Çü½Ä °ª:"+map);
+	    System.out.println("map í˜•ì‹ ê°’:"+map);
 	    
 	    String jsonMap = mapper.writeValueAsString(map);
-	    System.out.println( "ObjectMapper(Map) °ª: "+jsonMap);
+	    System.out.println( "ObjectMapper(Map) ê°’: "+jsonMap);
  
 		return  json;		
 	}
@@ -173,7 +173,7 @@ public class BoardController {
 			
 			
 			realFileName=new String(mFile.getOriginalFilename().getBytes("UTF-8"), "ISO-8859-1");
-			file =new File(realFileName);
+			file =new File(request.getRealPath("WEB-INF/upload/" +realFileName));
 			
 			if(mFile.getSize()!=0) {
 				
@@ -200,7 +200,7 @@ public class BoardController {
 
 
 
-			 FileSystemResource fsr = new FileSystemResource(file.getCanonicalPath());
+			 FileSystemResource fsr = new FileSystemResource(request.getRealPath("WEB-INF/upload/" +realFileName));
 			 messageHelper.addAttachment(realFileName, fsr);
 		
 
