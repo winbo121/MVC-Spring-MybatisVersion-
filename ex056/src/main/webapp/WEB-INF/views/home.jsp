@@ -260,7 +260,7 @@
 
 <script type="text/javascript">
 //웹소켓 초기화
-var webSocket = new WebSocket("ws://192.168.123.148:8181/wk123/broadsocket"); //진짜 통신을 하기 위해서는 localhost가 아닌 실제 ip를 적어야 한다!
+var webSocket = new WebSocket("ws://localhost:8181/wk123/broadsocket"); //진짜 통신을 하기 위해서는 localhost가 아닌 실제 ip를 적어야 한다!
 var messageTextArea = document.getElementById("messageTextArea");
 //메시지가 오면 messageTextArea요소에 메시지를 추가한다.
 webSocket.onmessage = function processMessge(message){
