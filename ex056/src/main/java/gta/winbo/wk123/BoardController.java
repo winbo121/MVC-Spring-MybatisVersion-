@@ -1,6 +1,9 @@
 package gta.winbo.wk123;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +11,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -87,7 +91,7 @@ public class BoardController {
 	public void excel(HttpServletRequest request, HttpServletResponse response,BoardVO V, Model M)throws Exception{
 		
 	    List<BoardVO> list = service.selectUser(V);
-	    	   
+ 	   
 	    // 워크북 생성
 	    Workbook wb = new HSSFWorkbook();    
 	    Sheet sheet = wb.createSheet("게시판");	
@@ -122,7 +126,6 @@ public class BoardController {
 
 	    // 엑셀 출력
 		wb.write(response.getOutputStream());
-		
 
 	}
 	
@@ -154,7 +157,7 @@ public class BoardController {
 	    String jsonMap = mapper.writeValueAsString(map);
 	    System.out.println( "ObjectMapper(Map) 값: "+jsonMap);
  
-		return  json;		
+		return  json;			
 	}
 	
 	
@@ -174,6 +177,8 @@ public class BoardController {
 			
 			realFileName=new String(mFile.getOriginalFilename().getBytes("UTF-8"), "ISO-8859-1");
 			file =new File(request.getRealPath("WEB-INF/upload/" +realFileName));
+			
+	
 			
 			if(mFile.getSize()!=0) {
 				
@@ -211,6 +216,68 @@ public class BoardController {
 		}
 		
 		return null;		
+	}
+	
+	@RequestMapping("/download.lims")
+	public void getFile( HttpServletRequest request,HttpServletResponse response) throws Exception {
+	     
+	 
+	    File file = new File(request.getRealPath("WEB-INF/upload/" +"install.txt"));
+	 
+	    FileInputStream fileInputStream = null;
+	    ServletOutputStream servletOutputStream = null;
+	 
+	    try{
+	        String downName = null;
+	        String browser = request.getHeader("User-Agent");
+	        //파일 인코딩
+	        if(browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")){//브라우저 확인 파일명 encode  
+	            
+	            downName = URLEncoder.encode("install.txt","UTF-8").replaceAll("\\+", "%20");
+	            
+	        }else{
+	            
+	            downName = new String("install.txt".getBytes("UTF-8"), "ISO-8859-1");
+	            
+	        }
+	        
+	        response.setHeader("Content-Disposition","attachment;filename=\"" + downName+"\"");             
+	        response.setContentType("application/octer-stream");
+	        response.setHeader("Content-Transfer-Encoding", "binary;");
+	 
+	        fileInputStream = new FileInputStream(file);
+	        servletOutputStream = response.getOutputStream();
+	 
+	        byte b [] = new byte[1024];
+	        int data = 0;
+	 
+	        while((data=(fileInputStream.read(b, 0, b.length))) != -1){
+	            
+	            servletOutputStream.write(b, 0, data);
+	            
+	        }
+	 
+	        servletOutputStream.flush();//출력
+	        
+	    }catch (Exception e) {
+	        e.printStackTrace();
+	    }finally{
+	        if(servletOutputStream!=null){
+	            try{
+	                servletOutputStream.close();
+	            }catch (IOException e){
+	                e.printStackTrace();
+	            }
+	        }
+	        if(fileInputStream!=null){
+	            try{
+	                fileInputStream.close();
+	            }catch (IOException e){
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	 
 	}
 	
 	
