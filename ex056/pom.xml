@@ -44,7 +44,7 @@
 		    <artifactId>ojdbc</artifactId>
 		    <version>1.4</version>
 		</dependency>
-		<!-- 	오라클 db연동 -->
+		<!-- db 연동 도우미 -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
