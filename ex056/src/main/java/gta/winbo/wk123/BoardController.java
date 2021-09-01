@@ -307,7 +307,7 @@ public class BoardController {
         model.addAttribute("nick", userInfo.get("nickname"));
         model.addAttribute("img", userInfo.get("profile_image"));
         
-        return "login";
+        return "kakaoLogin";
 		
 	}
 	
