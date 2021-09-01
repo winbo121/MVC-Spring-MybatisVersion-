@@ -291,15 +291,15 @@ public class BoardController {
 	 
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login (Locale locale, Model model,@RequestParam(value = "code", required = false) String code) {
+	@RequestMapping(value = "/kakaoLogin", method = RequestMethod.GET)
+	public String kakaoLogin (Locale locale, Model model,@RequestParam(value = "code", required = false) String code) {
 	
 		
 		System.out.println("#########" + code);
 		
-		String access_Token = getAccessToken(code);
+		String access_Token = kakaoGetAccessToken(code);
 		System.out.println("###access_Token#### : " + access_Token);
-        HashMap<String, Object> userInfo =getUserInfo(access_Token);
+        HashMap<String, Object> userInfo =kakaoGetUserInfo(access_Token);
         System.out.println("###userInfo#### : " + userInfo.get("email"));
         System.out.println("###nickname#### : " + userInfo.get("nickname"));
         System.out.println("###profile_image#### : " + userInfo.get("profile_image"));
@@ -313,7 +313,7 @@ public class BoardController {
 	
 	
 	
-    public String getAccessToken (String authorize_code) {
+    public String kakaoGetAccessToken (String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -372,7 +372,7 @@ public class BoardController {
         return access_Token;
     }
     
-    public HashMap<String, Object> getUserInfo (String access_Token) {
+    public HashMap<String, Object> kakaoGetUserInfo (String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
