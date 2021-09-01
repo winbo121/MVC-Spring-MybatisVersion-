@@ -10,18 +10,20 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -47,6 +49,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
+import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -64,6 +72,26 @@ public class BoardController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	
+    private final static String CLIENT_ID = "alod6zjNdOhFhiScodgV";
+    private final static String CLIENT_SECRET = "Zh3XGZgUBi";
+    private final static String REDIRECT_URI = "http://localhost:8181/wk123/naverCallback";
+    private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
+	
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model, HttpSession session) {
+
+        String naverLoginUrl = naverGetAuthorizationUrl(session);
+        
+        //네이버 
+        model.addAttribute("naverLoginUrl", naverLoginUrl);
+
+		
+		return "home";
+	}
+    
+    
 	@RequestMapping(value="/select.lims",method=RequestMethod.POST)
 	public ModelAndView list(HttpServletRequest request,BoardVO V, Model M) throws Exception {	
 		
@@ -419,6 +447,79 @@ public class BoardController {
         }
 
         return userInfo;
+    }
+    
+       
+
+
+ 
+    //네이버 로그인 성공시 callback호출 메소드
+    @RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String naverCallback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+            throws IOException {
+
+
+        OAuth2AccessToken oauthToken = naverGetAccessToken(session, code, state);
+
+        String apiResult = naverGetUserProfile(oauthToken);
+        
+        model.addAttribute("result", apiResult);
+ 
+        return "naverLogin";
+    }
+    
+    
+
+    public String naverGetAuthorizationUrl(HttpSession session) {
+ 
+  
+        String state = UUID.randomUUID().toString(); 
+ 
+
+        OAuth20Service oauthService = new ServiceBuilder()                                                   
+                .apiKey(CLIENT_ID)
+                .apiSecret(CLIENT_SECRET)
+                .callback(REDIRECT_URI)
+                .state(state) 
+                .build(NaverLoginApi.instance());
+ 
+        return oauthService.getAuthorizationUrl();
+    }
+ 
+
+    public OAuth2AccessToken naverGetAccessToken(HttpSession session, String code, String state) throws IOException{
+ 
+
+ 
+            OAuth20Service oauthService = new ServiceBuilder()
+                    .apiKey(CLIENT_ID)
+                    .apiSecret(CLIENT_SECRET)
+                    .callback(REDIRECT_URI)
+                    .state(state)
+                    .build(NaverLoginApi.instance());
+ 
+  
+            OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
+            return accessToken;
+
+    }
+ 
+
+
+    public String naverGetUserProfile(OAuth2AccessToken oauthToken) throws IOException{
+ 
+        OAuth20Service oauthService =new ServiceBuilder()
+                .apiKey(CLIENT_ID)
+                .apiSecret(CLIENT_SECRET)
+                .callback(REDIRECT_URI).build(NaverLoginApi.instance());
+ 
+        OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
+        
+        oauthService.signRequest(oauthToken, request);
+        
+        Response response = request.send();
+        
+        return response.getBody();
     }
 	
 	
