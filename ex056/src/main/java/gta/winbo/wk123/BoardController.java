@@ -430,8 +430,10 @@ public class BoardController {
             JsonElement element = parser.parse(result);
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            if(!properties.has("profile_image")) {
+            	properties.addProperty("profile_image", "");
+            }
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
             String nickname = properties.get("nickname").toString();
             String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
