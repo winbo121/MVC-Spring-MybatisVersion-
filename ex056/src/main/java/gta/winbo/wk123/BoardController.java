@@ -429,14 +429,21 @@ public class BoardController {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
-            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            if(!properties.has("profile_image")) {
-            	properties.addProperty("profile_image", "");
-            }
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-            String nickname = properties.get("nickname").toString();
-            String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String profile_image ="";
+            String nickname ="";
+            String email="";
+            if(!kakao_account.has("profile")) {
+            	nickname ="";
+            	profile_image ="";
+            	email=element.getAsJsonObject().get("id").getAsString();
+            }
+            else {
+                JsonObject profile = kakao_account.get("profile").getAsJsonObject();
+                profile_image = profile.getAsJsonObject().get("profile_image_url").getAsString();
+                nickname = profile.getAsJsonObject().get("nickname").getAsString();
+                email = kakao_account.getAsJsonObject().get("email").getAsString();
+            }
 
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
