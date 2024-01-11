@@ -31,7 +31,7 @@
              value="jdbc:mysql://127.0.0.1:3306/test?useSSL=false&amp;serverTimezone=UTC">
          </property> 
         <property name="username" value="root"></property> 
-       <property name="password" value="123456"></property> 
+       <property name="password" value="rlwogns789"></property> 
      </bean>   
 
 	
