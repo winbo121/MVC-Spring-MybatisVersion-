@@ -75,7 +75,7 @@ public class BoardController {
 	
     private final static String CLIENT_ID = "387716614323-ijp5jcdruh0fro958q0ugbkuf1idtpnf.apps.googleusercontent.com";
     private final static String CLIENT_SECRET = "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";
-    private final static String REDIRECT_URI = "http://127.0.0.1:8181/wk123/naverCallback";
+    private final static String REDIRECT_URI = "http://127.0.0.1:8181/wk123/googleCallback";
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 	
 	
@@ -463,12 +463,12 @@ public class BoardController {
 
  
     //네이버 로그인 성공시 callback호출 메소드
-    @RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
-    public String naverCallback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+    @RequestMapping(value = "/googleCallback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String naverCallback(Model model, @RequestParam String code, HttpSession session)
             throws IOException {
 
 
-        OAuth2AccessToken oauthToken = naverGetAccessToken(session, code, state);
+        OAuth2AccessToken oauthToken = naverGetAccessToken(session, code);
 
         String apiResult = naverGetUserProfile(oauthToken);
         
@@ -481,22 +481,19 @@ public class BoardController {
 
     public String naverGetAuthorizationUrl(HttpSession session) {
  
-  
-        String state = UUID.randomUUID().toString(); 
- 
 
         OAuth20Service oauthService = new ServiceBuilder()                                                   
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI)
-                .state(state) 
+                .state("email profile openid") 
                 .build(NaverLoginApi.instance());
  
         return oauthService.getAuthorizationUrl();
     }
  
 
-    public OAuth2AccessToken naverGetAccessToken(HttpSession session, String code, String state) throws IOException{
+    public OAuth2AccessToken naverGetAccessToken(HttpSession session, String code) throws IOException{
  
 
  
@@ -504,7 +501,6 @@ public class BoardController {
                     .apiKey(CLIENT_ID)
                     .apiSecret(CLIENT_SECRET)
                     .callback(REDIRECT_URI)
-                    .state(state)
                     .build(NaverLoginApi.instance());
  
   
