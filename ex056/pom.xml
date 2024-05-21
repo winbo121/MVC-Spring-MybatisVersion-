@@ -99,7 +99,7 @@
 			    <version>2.8.5</version>
 		</dependency>
 		
-		<!-- 네이버 로그인 -->
+		<!-- OAuth20Service auth로그인 도우미 -->
 		<dependency> 
 		<groupId>com.github.scribejava</groupId> 
 		<artifactId>scribejava-core</artifactId> 
