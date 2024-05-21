@@ -75,7 +75,7 @@ public class BoardController {
 	
     private final static String CLIENT_ID = "387716614323-ijp5jcdruh0fro958q0ugbkuf1idtpnf.apps.googleusercontent.com";
     private final static String CLIENT_SECRET = "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";
-    private final static String REDIRECT_URI = "http://localhost:8181/wk123/naverCallback";
+    private final static String REDIRECT_URI = "http://127.0.0.1:8181/wk123/naverCallback";
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 	
 	
