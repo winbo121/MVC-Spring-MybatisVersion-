@@ -247,7 +247,7 @@
 <br>
 <br>
 <a href="https://kauth.kakao.com/oauth/authorize?client_id=7b84d8305db43830a4feba2efbb88903&redirect_uri=http://localhost:8181/wk123/kakaoLogin&response_type=code&prompt=login">카카오 로그인 테스트</a>
-/ <a href="${naverLoginUrl}">네이버 로그인 테스트</a>
+/ <a href="${googleLoginUrl}">구글 로그인 테스트</a>
 <br>
 <br>
 <button type="button" onclick="jsonTest()">JSON통신 테스트</button>

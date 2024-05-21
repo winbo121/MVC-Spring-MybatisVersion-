@@ -82,10 +82,10 @@ public class BoardController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
 
-        String naverLoginUrl = naverGetAuthorizationUrl(session);
+        String googleLoginUrl = googleGetAuthorizationUrl(session);
         
         //네이버 
-        model.addAttribute("naverLoginUrl", naverLoginUrl);
+        model.addAttribute("googleLoginUrl", googleLoginUrl);
 
 		
 		return "home";
@@ -464,22 +464,22 @@ public class BoardController {
  
     //네이버 로그인 성공시 callback호출 메소드
     @RequestMapping(value = "/googleCallback", method = { RequestMethod.GET, RequestMethod.POST })
-    public String naverCallback(Model model, @RequestParam String code, HttpSession session)
+    public String googleCallback(Model model, @RequestParam String code, HttpSession session)
             throws IOException {
 
 
-        OAuth2AccessToken oauthToken = naverGetAccessToken(session, code);
+        OAuth2AccessToken oauthToken = googleGetAccessToken(session, code);
 
-        String apiResult = naverGetUserProfile(oauthToken);
+        String apiResult = googleGetUserProfile(oauthToken);
         
         model.addAttribute("result", apiResult);
  
-        return "naverLogin";
+        return "googleLogin";
     }
     
     
 
-    public String naverGetAuthorizationUrl(HttpSession session) {
+    public String googleGetAuthorizationUrl(HttpSession session) {
  
 
         OAuth20Service oauthService = new ServiceBuilder()                                                   
@@ -487,13 +487,13 @@ public class BoardController {
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI)
                 .scope("email profile openid") 
-                .build(NaverLoginApi.instance());
+                .build(GoogleLoginApi.instance());
  
         return oauthService.getAuthorizationUrl();
     }
  
 
-    public OAuth2AccessToken naverGetAccessToken(HttpSession session, String code) throws IOException{
+    public OAuth2AccessToken googleGetAccessToken(HttpSession session, String code) throws IOException{
  
 
  
@@ -501,7 +501,7 @@ public class BoardController {
                     .apiKey(CLIENT_ID)
                     .apiSecret(CLIENT_SECRET)
                     .callback(REDIRECT_URI)
-                    .build(NaverLoginApi.instance());
+                    .build(GoogleLoginApi.instance());
  
   
             OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
@@ -511,12 +511,12 @@ public class BoardController {
  
 
 
-    public String naverGetUserProfile(OAuth2AccessToken oauthToken) throws IOException{
+    public String googleGetUserProfile(OAuth2AccessToken oauthToken) throws IOException{
  
         OAuth20Service oauthService =new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
-                .callback(REDIRECT_URI).build(NaverLoginApi.instance());
+                .callback(REDIRECT_URI).build(GoogleLoginApi.instance());
  
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
         

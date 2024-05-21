@@ -2,17 +2,17 @@ package gta.winbo.wk123;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
-public class NaverLoginApi extends DefaultApi20{
+public class GoogleLoginApi extends DefaultApi20{
 
-	   protected NaverLoginApi(){
+	   protected GoogleLoginApi(){
 	    }
 	 
 	    private static class InstanceHolder{
-	        private static final NaverLoginApi INSTANCE = new NaverLoginApi();
+	        private static final GoogleLoginApi INSTANCE = new GoogleLoginApi();
 	    }
 	 
 	 
-	    public static NaverLoginApi instance(){
+	    public static GoogleLoginApi instance(){
 	        return InstanceHolder.INSTANCE;
 	    }
 	 
