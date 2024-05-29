@@ -100,6 +100,12 @@ public class BoardController {
 		return new ModelAndView(new JsonView());		
 	}
 	
+	@RequestMapping(value="/map.lims",method=RequestMethod.GET)
+	public String map(HttpServletRequest request, Model M) throws Exception {	
+		 
+		return "map";
+	}
+	
 	@RequestMapping(value="/insert.lims",method=RequestMethod.POST)
 	public String insert(HttpServletRequest request,BoardVO V, Model M) throws Exception {	
 		 
