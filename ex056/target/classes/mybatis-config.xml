@@ -6,6 +6,6 @@
 <configuration>
 <typeAliases>
 
-<package name="gta.winbo.wk123" />
+<typeAlias alias="BoardVO" type="gta.winbo.wk123.BoardVO"/>
 </typeAliases>
 </configuration>

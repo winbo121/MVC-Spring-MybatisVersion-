@@ -20,30 +20,30 @@
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+	<!-- 디비와 쿼츠 프로퍼티 위치 임포트 -->
+	<context:property-placeholder location="classpath:config-local/quartz.properties,
+                                            classpath:config-local/db.properties" />
 	
     <!-- 자신의 PC(로컬)에 MySql을 설치했을 경우 -->
-     <bean id="dataSource" 
-         class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> 
-        <property name="url" 
-             value="jdbc:mysql://127.0.0.1:3306/test?useSSL=false&amp;serverTimezone=UTC">
-         </property> 
-        <property name="username" value="root"></property> 
-       <property name="password" value="rlwogns789"></property> 
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+        <property name="driverClassName"  value="${db.driverClassName}" />
+        <property name="url"              value="${db.url}" />
+        <property name="username"         value="${db.userId}" />
+        <property name="password"         value="${db.password}" />
      </bean>   
 
 	
 	
-	<!-- 디비 접속 빈즈 -->  
+	<!-- 오라클 접속 빈즈 -->  
 <!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
 <!-- 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
 <!-- 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" /> -->
 <!-- 	<property name="username" value="system" /> -->
 <!-- 	<property name="password" value="123456" /> -->
 <!-- 	</bean> -->
-		<!-- sql 맵퍼와 mybatis위치 알려주는 빈즈 -->
+
+
+	<!-- sql 맵퍼와 mybatis위치 알려주는 빈즈 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>

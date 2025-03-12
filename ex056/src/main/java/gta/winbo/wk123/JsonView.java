@@ -23,7 +23,7 @@ protected void renderMergedOutputModel(Map model, HttpServletRequest request, Ht
 		Object object = model.get("resultData");
 		Gson gson = new Gson();	
 		String json = gson.toJson(object);
-		System.out.println("Gson+°ª:"+json);
+		System.out.println("Gson:"+json);
 		PrintWriter writer = response.getWriter();
 		writer.write(json);
 		writer.close();
